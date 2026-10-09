@@ -3,6 +3,10 @@ on:
   workflow_call:
     inputs:
       app: { required: true, type: string }
+      # Optional. Empty keeps the action's default Git context (repo root).
+      context: { required: false, type: string, default: "" }
+      # Optional. Newline-separated KEY=value pairs passed as Docker build args.
+      build-args: { required: false, type: string, default: "" }
     secrets:
       SSH_DEPLOY_KEY: { required: true }
 jobs:
@@ -19,6 +23,8 @@ jobs:
       - uses: docker/build-push-action@v6
         with:
           push: true
+          context: ${{ inputs.context }}
+          build-args: ${{ inputs.build-args }}
           tags: |
             ghcr.io/developnojutsu/${{ inputs.app }}:latest
             ghcr.io/developnojutsu/${{ inputs.app }}:${{ github.sha }}
