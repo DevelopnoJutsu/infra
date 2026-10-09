@@ -1,0 +1,66 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cat *)",
+      "Bash(gh run list *)",
+      "Bash(gh run view *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git status *)",
+      "Bash(ls *)",
+      "Bash(npm ci *)",
+      "Bash(npm install *)",
+      "Bash(npm run build *)",
+      "Bash(npm run test *)",
+      "Bash(npm test *)",
+      "Bash(pnpm build *)",
+      "Bash(pnpm install *)",
+      "Bash(pnpm run build *)",
+      "Bash(pnpm run test *)",
+      "Bash(pnpm test *)",
+      "Read(./**)"
+    ],
+    "ask": [
+      "Bash(gh repo *)",
+      "Bash(gh secret *)",
+      "Bash(git push *)",
+      "Bash(rm *)",
+      "Bash(scp *)",
+      "Bash(ssh *)"
+    ],
+    "deny": [
+      "Bash(cat *.env *)",
+      "Bash(cat *.env)",
+      "Bash(cat *.env.development*)",
+      "Bash(cat *.env.local*)",
+      "Bash(cat *.env.production*)",
+      "Bash(cat ~/.ssh/*)",
+      "Bash(rm -rf /)",
+      "Bash(rm -rf ~)",
+      "Bash(sudo rm -rf /)",
+      "Bash(sudo rm -rf ~)",
+      "Edit(**/.env)",
+      "Edit(.env)",
+      "Edit(~/.ssh/**)",
+      "Read(**/.env)",
+      "Read(.env)",
+      "Read(~/.ssh/**)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Read|Edit|Write|MultiEdit|NotebookEdit|Grep",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/block-env-files.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
