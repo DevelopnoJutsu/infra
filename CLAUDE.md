@@ -15,4 +15,4 @@ Cada push a `main` despliega solo. Variables en el servidor: `/opt/apps/<nombre>
 ## Reglas
 - Nunca mostrar, copiar ni subir el contenido de `~/.ssh/gh_deploy` ni archivos `.env`.
 - Caddyfile (`/opt/apps/caddy/Caddyfile`) está montado como archivo único: solo agregar al final, nunca `sed -i` ni editores que lo reemplacen.
-- No tocar contenedores existentes: bolsa, opengym, n8n, sandbox, uptime-kuma.
+- No tocar contenedores que no sean del proyecto en curso.
