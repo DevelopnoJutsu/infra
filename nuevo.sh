@@ -12,6 +12,8 @@ URL="https://github.com/$ORG/$APP.git"
 [[ -f "$KEY" ]] || { echo "Falta la llave $KEY"; exit 1; }
 gh auth status >/dev/null 2>&1 || { echo "Corre primero: gh auth login"; exit 1; }
 
+git remote -v 2>/dev/null | grep -qi gitlab && { echo "⛔ Proyecto de GitLab (trabajo). No se despliega."; exit 1; }
+
 echo "1/4 Servidor"
 if ssh "$SERVER" test -d "/opt/apps/$APP"; then echo "  ya existe, sigo"
 else ssh "$SERVER" sudo /usr/local/sbin/nuevo-proyecto.sh "$APP" "$PORT"; fi
